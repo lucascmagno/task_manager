@@ -1,9 +1,15 @@
+<?php
+  require_once('../../Controllers/usuarioController.php');
+
+  $usuarioController = new UsuarioController();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastro</title>
 
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -20,12 +26,12 @@
 </head>
 <body>
     <div class="container">
-        <form class="row g-3 needs-validation" novalidate>
+        <form method="post" class="row g-3 needs-validation" novalidate>
             <div class="col-md-12">
               <label for="validationCustomUsername" class="form-label">Usuario</label>
               <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required name="nome_usuario">
                 <div class="invalid-feedback">
                   Por favor insira um usuário válido.
                 </div>
@@ -35,8 +41,18 @@
               </div>
             </div>
             <div class="col-md-12">
+                <label for="validationCustom02" class="form-label">Email</label>
+                <input type="email" class="form-control" id="validationCustom02" placeholder="exemplo@ex.com" required name="email_usuario">
+                <div class="valid-feedback">
+                  Muito bom!
+                </div>
+                <div class="invalid-feedback">
+                    Por favor insira um email válido.
+                  </div>
+              </div>
+            <div class="col-md-12">
               <label for="validationCustom05" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="validationCustom05" required>
+              <input type="password" class="form-control" id="validationCustom05" required name="senha_usuario">
               <div class="invalid-feedback">
                 Por favor insira uma senha válida.
               </div>
@@ -56,8 +72,8 @@
               </div>
             </div>
             <div class="submit col-12">
-                <a href="./cadastro.html">Cadastre-se agora</a><br>
-              <button class="btn btn-primary" type="submit">Login</button>
+                <a href="./login.php">Já tem conta? Faça login agora</a><br>
+              <button class="btn btn-primary" type="submit" onclick="<?= $usuarioController->adicionarUsuario()?>">Cadastrar</button>
             </div>
           </form>
     </div>

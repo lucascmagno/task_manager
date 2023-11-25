@@ -1,9 +1,25 @@
 <?php
 require_once(__DIR__ . '/../../Controllers/materiaController.php');
+require_once(__DIR__ . '/../../Controllers/usuarioController.php');
 
+// Inicia a sessão para verificar se o usuário está logado antes de acessar a página de matérias
+session_start();
+// Verifica se o usuário está autenticado antes de acessar o ID
+/*
+if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+    $id_usuario = $_SESSION['user_id'];
+    // Restante do código
+} else {
+    // Redireciona ou executa outra lógica para usuários não autenticados
+    $_SESSION['message'] = 'Você precisa fazer login para acessar esta página.';
+    header('Location: ./materia.php');
+    exit();
+}
+*/
 $action = !empty($_GET['a']) ? $_GET['a'] : 'getAll';
 
-$controller = new MateriaController();
+$controller = new MateriaController(); //Inclusão da classe Materia
+$usuarioController = new UsuarioController(); //Inclusão da classe Usuario
 
 $data = $controller->{$action}();
 
@@ -11,6 +27,11 @@ $message = '';
 if (isset($_GET['success'])) {
     $message = ($_GET['success'] === 'true') ? "Matéria inserida com sucesso!" : "Falha ao inserir a matéria.";
 }
+
+// Obtém o nome do usuário logado
+$id_usuario = 1;
+$nome_usuario = $usuarioController->getUserNameById($id_usuario);
+
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +67,11 @@ if (isset($_GET['success'])) {
 </head>
 <body>
     <h1>Materias List</h1>
-    
+    <p>ola <span><?php foreach ($nome_usuario as $nome): ?>
+                <?= $nome["nomeusuario"]?>
+             <?php endforeach; ?>
+            </span>
+    </p>
     <?php if (!empty($message)): ?>
         <div class="message <?php echo ($_GET['success'] === 'true') ? 'success' : 'failure'; ?>">
             <?php echo $message; ?>

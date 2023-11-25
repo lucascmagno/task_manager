@@ -23,7 +23,6 @@ USE `tasks` ;
 CREATE TABLE IF NOT EXISTS `tasks`.`usuario` (
   `idusuario` INT NOT NULL AUTO_INCREMENT,
   `nome_usuario` VARCHAR(55) NOT NULL,
-  `matricula_usuario` VARCHAR(75) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idusuario`))
