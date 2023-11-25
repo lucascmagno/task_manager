@@ -67,11 +67,7 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
 </head>
 <body>
     <h1>Materias List</h1>
-    <p>ola <span><?php foreach ($nome_usuario as $nome): ?>
-                <?= $nome["nomeusuario"]?>
-             <?php endforeach; ?>
-            </span>
-    </p>
+    <p>ola <span> <?= $nome_usuario ?></span></p>
     <?php if (!empty($message)): ?>
         <div class="message <?php echo ($_GET['success'] === 'true') ? 'success' : 'failure'; ?>">
             <?php echo $message; ?>
