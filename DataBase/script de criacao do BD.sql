@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `tasks`.`materia` (
   `data_atualizacao` DATETIME NOT NULL,
   `usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`idmateria`),
-  INDEX `fk_materia_usuario1_idx` (`usuario_idusuario` ASC) VISIBLE,
+  INDEX `fk_materia_usuario1_idx` (`usuario_idusuario` ASC),
   CONSTRAINT `fk_materia_usuario1`
     FOREIGN KEY (`usuario_idusuario`)
     REFERENCES `tasks`.`usuario` (`idusuario`)
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `tasks`.`tarefa` (
   `data_atualizacao` DATETIME NOT NULL,
   `materia_idmateria` INT NOT NULL,
   PRIMARY KEY (`idtarefa`),
-  INDEX `fk_atividade_materia1_idx` (`materia_idmateria` ASC) VISIBLE,
+  INDEX `fk_atividade_materia1_idx` (`materia_idmateria` ASC),
   CONSTRAINT `fk_atividade_materia1`
     FOREIGN KEY (`materia_idmateria`)
     REFERENCES `tasks`.`materia` (`idmateria`)
