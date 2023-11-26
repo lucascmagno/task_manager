@@ -42,14 +42,6 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
     <title>Materias</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        tr, td {
-            border: 1px solid black;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
         .message {
             margin-top: 20px;
             padding: 10px;
@@ -63,43 +55,67 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
         .failure {
             color: red;
         }
+
+        .custom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .custom-list-item {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .custom-btn {
+            margin-right: 10px;
+        }
+        .Container{
+            margin: auto;
+        }
+        span{
+            font-weight: 600;
+            font-size: .8rem;
+        }
+
+        .botoes{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+        }
     </style>
 </head>
 <body>
-    <h1>Materias List</h1>
-    <p>ola <span> <?= $nome_usuario ?></span></p>
+    <h1 class="mt-3">Materias List</h1>
+    <p>Olá <span><?= $nome_usuario ?></span></p>
+
     <?php if (!empty($message)): ?>
         <div class="message <?php echo ($_GET['success'] === 'true') ? 'success' : 'failure'; ?>">
             <?php echo $message; ?>
         </div>
     <?php endif; ?>
 
-    <div class="content">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Data de Criação</th>
-                    <th>Data de Atualização</th>
-                    <th>ID do Usuário</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($data as $row): ?>
-                    <tr>
-                        <td><?= $row['idmateria'] ?></td>
-                        <td><?= $row['nome_materia'] ?></td>
-                        <td><?= $row['data_criacao'] ?></td>
-                        <td><?= $row['data_atualizacao'] ?></td>
-                        <td><?= $row['usuario_idusuario'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+    <div class="Container d-flex w-50">
+        <ul class="custom-list mt-3">
+            <?php foreach ($data as $row): ?>
+                <li class="custom-list-item">
+                    <h5><?= $row['nome_materia'] ?></h5>
+                    <div>
+                        <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span>
+                        <span>Atualizado em: <?= (new DateTime($row['data_atualizacao']))->format('d/m/Y H:i:s') ?></span>
+                        <!-- Botões Editar e Apagar -->
+                        <div class="botoes">
+                            <a href="./editarMateria.php?id_materia=<?=$row['idmateria']?>" class="btn btn-primary custom-btn">Editar</a>
+                            <button class="btn btn-danger custom-btn" onclick="<?=$controller->deleteMaterialById($row['idmateria'])?>">Apagar</button>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
-    <script>
-        alert(<?= print_r($message)?>);
-    </script>
 </body>
 </html>

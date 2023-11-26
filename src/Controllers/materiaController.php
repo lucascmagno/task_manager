@@ -37,5 +37,38 @@
                 exit();
             }
         }
+
+        function editarMateria(){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $id_materia = $_POST['id_materia'];
+                $nome_materia = $_POST['nome_materia'];
+    
+                // Valide os dados conforme necessário
+    
+                $materiaModel = new MateriaModel();
+                $materiaModel->editarMateria($id_materia, $nome_materia);
+                //armazena o resultado da execução do método inserirMateria na variável $ok para ser usado no if abaixo 
+                $ok = $materiaModel;
+                //verifica se a variável $ok é true ou false
+                if($ok){
+                    header('Location: ../pages/materia.php?sussesso=true');
+                }else{
+                    header('Location: ../pages/materia.php?sussesso=false');
+                }
+
+                exit();
+            }
+        }
+
+        function getMateriaById($id_materia){
+            $resultData = $this->model->getMateriaById($id_materia);
+            require_once(__DIR__ . '/../Views/pages/editarMateria.php');
+            return $resultData;
+        }
+
+        function deleteMaterialById($id_materia){
+            $resultData = $this->model->deleteMaterialById($id_materia);
+            return $resultData;
+        }
     }
 ?>
