@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $materiaController->adicionarMateria();
 }
 
+
 // Inicia a sessão para verificar se o usuário está logado antes de acessar a página de matérias
 session_start();
 // Verifica se o usuário está autenticado antes de acessar o ID
@@ -201,9 +202,8 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
 
         // Faz a solicitação AJAX para obter os detalhes da matéria com base no ID
         $.ajax({
-            url: 'listaMateria.php',
+            url: 'listaMateria.php?id=' + materiaId,
             type: 'GET',
-            data: { id: materiaId },
             dataType: 'json',
             success: function (data) {
                 // Preenche os campos do formulário no modal com os dados recebidos
@@ -215,6 +215,7 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
                 // Adicione aqui a lógica para lidar com erros, se necessário
             }
         });
+
     });
 });
 

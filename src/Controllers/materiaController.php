@@ -53,8 +53,8 @@
         }
 
         function getMateriaById($id_materia){
+            require_once(__DIR__ . '/../Views/pages/materia.php');
             $resultData = $this->model->getMateriaById($id_materia);
-            require_once(__DIR__ . '/../Views/pages/editarMateria.php');
             return $resultData;
         }
 

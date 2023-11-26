@@ -1,21 +1,32 @@
 <?php
+// listaMateria.php
 require_once(__DIR__ . '/../../Controllers/materiaController.php');
 
-$materiaController = new MateriaController();
+// Verifica se a requisição é do tipo GET e se o parâmetro 'id' está presente
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+    $id_materia = $_GET['id'];
 
-$id_materia = $_GET['id_materia'];
+    // Cria uma instância da classe MateriaController
+    $materiaController = new MateriaController();
 
-// Obtém os dados
-$data = $materiaController->getMateriaById($id_materia);
+    // Obtém os detalhes da matéria pelo ID
+    $detalhesMateria = $materiaController->getMateriaById($id_materia);
 
-if(isset($_GET['id_materia'])){ // corrigindo o nome do campo
-    $id_materia = $_GET['id_materia'];
-
-    $dados_materia = $materiaController->getMateriaById($id_materia);
-    echo json_encode($dados_materia);
-    header('Location: ../pages/materia.php?success=true'); // corrigindo a variável na URL
+    // Verifica se os detalhes foram obtidos com sucesso
+    if ($detalhesMateria !== null) {
+        // Retorna os detalhes em formato JSON
+        header('Content-Type: application/json');
+        echo json_encode($detalhesMateria);
+    } else {
+        // Retorna uma resposta de erro em formato JSON (pode ser ajustada conforme necessário)
+        header('Content-Type: application/json');
+        http_response_code(500); // Código HTTP 500 - Internal Server Error
+        echo json_encode(['error' => 'Erro ao obter detalhes da matéria.']);
+    }
 } else {
-    echo json_encode(array('error' => 'ID da matéria não fornecido.'));
-    header('Location: ../pages/materia.php?success=false'); // corrigindo a variável na URL
+    // Retorna uma resposta de erro em formato JSON se a requisição não for válida
+    header('Content-Type: application/json');
+    http_response_code(400); // Código HTTP 400 - Bad Request
+    echo json_encode(['error' => 'Requisição inválida.']);
 }
 ?>
