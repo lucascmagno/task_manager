@@ -16,15 +16,11 @@
             return $resultData;
         }
 
-        function adicionarMateria() {
+        function inserirMateria($nome_materia, $idusuario){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $nome_materia = $_POST['nome_materia'];
-                $idusuario = $_POST['idusuario'];
-    
                 // Valide os dados conforme necessário
     
-                $materiaModel = new MateriaModel();
-                $materiaModel->inserirMateria($nome_materia, $idusuario);
+                $materiaModel = $this->model->inserirMateria($nome_materia, $idusuario);
                 //armazena o resultado da execução do método inserirMateria na variável $ok para ser usado no if abaixo 
                 $ok = $materiaModel;
                 //verifica se a variável $ok é true ou false
@@ -38,15 +34,11 @@
             }
         }
 
-        function editarMateria(){
+        function editarMateria($id_materia, $nome_materia){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $id_materia = $_POST['id_materia'];
-                $nome_materia = $_POST['nome_materia'];
-    
                 // Valide os dados conforme necessário
     
-                $materiaModel = new MateriaModel();
-                $materiaModel->editarMateria($id_materia, $nome_materia);
+                $materiaModel = $this->model->editarMateria($id_materia, $nome_materia);
                 //armazena o resultado da execução do método inserirMateria na variável $ok para ser usado no if abaixo 
                 $ok = $materiaModel;
                 //verifica se a variável $ok é true ou false
@@ -66,8 +58,8 @@
             return $resultData;
         }
 
-        function deleteMaterialById($id_materia){
-            $resultData = $this->model->deleteMaterialById($id_materia);
+        function deletarMaterialById($id_materia){
+            $resultData = $this->model->deletarMaterialById($id_materia);
             return $resultData;
         }
     }

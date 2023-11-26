@@ -92,7 +92,7 @@
         
         }
         
-        function deleteMaterialById($id_materia){
+        function deletarMaterialById($id_materia){
             try {
                 $query = "DELETE FROM $this->table WHERE idmateria = :id_materia";
                 
@@ -104,14 +104,11 @@
                 // Execução da consulta
                 $stmt->execute();
     
-                // Retorna o resultado da consulta
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-                return $result ?? null; // Se não houver resultado, retorna null (ou uma mensagem de erro, se preferir) 
+                return true;
             } catch (PDOException $e) {
                 // Trate exceções aqui (log, exibição de mensagem, etc.)
                 echo "Erro: " . $e->getMessage();
-                return null;
+                return false;
             }
         }
     }
