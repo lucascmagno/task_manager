@@ -119,7 +119,8 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
                         <span>Atualizado em: <?= (new DateTime($row['data_atualizacao']))->format('d/m/Y H:i:s') ?></span>
                         <!-- Botões Editar e Apagar -->
                         <div class="botoes">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?=$row['idmateria']?>">Editar</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?=$row['idmateria']?>">Editar</button>
+
 
                             <form method="post" action="../php/deleteMateria.php">
                                 <input type="hidden" name="id_materia" value="<?=$row['idmateria']?>">
@@ -133,6 +134,7 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
     </div>
 
     <!-- Modal Para Editar Uma Materia -->
+  
     <div class="modal fade" id="Editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -193,31 +195,37 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+    // Adicionar ouvinte de evento para o modal de edição
     var editarModal = new bootstrap.Modal(document.getElementById('Editar'));
-
-    // Adiciona um ouvinte de evento quando o modal de edição é exibido
     editarModal._element.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget; // Botão que acionou o modal
-        var materiaId = button.getAttribute('data-id'); // Obtém o ID da matéria do botão
+        var button = event.relatedTarget;
+        var materiaId = button.getAttribute('data-id');
 
-        // Faz a solicitação AJAX para obter os detalhes da matéria com base no ID
-        $.ajax({
-            url: 'listaMateria.php?id=' + materiaId,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Preenche os campos do formulário no modal com os dados recebidos
-                document.getElementById('materiaNome').value = data.nome_materia;
-                document.getElementById('materiaId').value = data.idmateria;
-            },
-            error: function (xhr, status, error) {
-                console.error('Erro ao obter dados da matéria:', status, error);
-                // Adicione aqui a lógica para lidar com erros, se necessário
+        // Fazer solicitação AJAX usando JavaScript puro
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'listaMateria.php?id=' + materiaId, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        document.getElementById('materiaNome').value = data.nome_materia;
+                        document.getElementById('materiaId').value = data.idmateria;
+                    } catch (e) {
+                        console.error('Erro ao analisar resposta JSON:', e);
+                    }
+                } else {
+                    console.error('Erro ao obter dados da matéria:', xhr.status, xhr.statusText);
+                }
             }
-        });
-
+        };
+        xhr.send();
     });
 });
+
+</script>
 
 </script>
 </body>
