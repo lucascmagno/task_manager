@@ -38,5 +38,21 @@
                 exit();
             }
         }
+
+        public function updateTarefa($id_tarefa, $nome_tarefa, $descricao_tarefa, $tempo_lembrete){
+            $resultData = $this->model->updateTarefa($id_tarefa, $nome_tarefa, $descricao_tarefa, $tempo_lembrete);
+            return $resultData;
+        }
+
+        public function deleteTarefa($id_tarefa){
+            $resultData = $this->model->deleteTarefa($id_tarefa);
+            return $resultData;
+        }
+
+        public function getTarefaByIdMateria($id_materia){
+            require_once(__DIR__ . '/../Views/pages/tarefas.php');
+            $resultData = $this->model->getTarefaByIdMateria($id_materia);
+            return $resultData;
+        }
     }
 ?>

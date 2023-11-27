@@ -5,11 +5,6 @@ require_once(__DIR__ . '/../../Controllers/usuarioController.php');
 $controller = new MateriaController(); //Inclusão da classe Materia
 $usuarioController = new UsuarioController(); //Inclusão da classe Usuario
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $materiaController->adicionarMateria();
-}
-
-
 // Inicia a sessão para verificar se o usuário está logado antes de acessar a página de matérias
 session_start();
 // Verifica se o usuário está autenticado antes de acessar o ID
@@ -99,6 +94,10 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
             flex-direction: row;
             justify-content: end;
         }
+        a:hover{
+            text-decoration: none;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -108,10 +107,10 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
     <?php if (!empty($message)): ?>
             <script>alert('<?php echo $message; ?>')</script>
     <?php endif; ?>
-
     <div class="Container w-50">
         <ul class="custom-list mt-3">
             <?php foreach ($data as $row): ?>
+                <a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./tarefas.php?idmateria=<?=$row['idmateria']?>">
                 <li class="custom-list-item">
                     <h5><?= $row['nome_materia'] ?></h5>
                     <div>
@@ -129,6 +128,7 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
                         </div>
                     </div>
                 </li>
+                </a>
             <?php endforeach; ?>
         </ul>
     </div>

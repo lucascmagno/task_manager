@@ -23,5 +23,18 @@
                 die();
             }
         }
+
+        function closeConnection(){
+            $this->connection = null;
+        }
+
+        function __destruct()
+        {
+            $this->closeConnection();
+        }
+
+        function returnLastInsertId(){
+            return $this->connection->lastInsertId();
+        }
     } 
 ?>

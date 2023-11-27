@@ -1,6 +1,5 @@
 <!--Consultas/Regras de negócios-->
 <?php
-
     require_once(__DIR__ . '/../Configuration/connect.php');
     class MateriaModel extends Connect{
         private $table;
