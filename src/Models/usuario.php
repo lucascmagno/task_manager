@@ -92,7 +92,31 @@
         
         }
 
-        function getUserByName($nome_usuario){
+        function getUserById($id_usuario){
+            try {
+                $query = "SELECT * FROM $this->table WHERE idusuario = :id_usuario";
+                
+                $stmt = $this->connection->prepare($query);
+    
+                // Bind dos parâmetros
+                $stmt->bindParam(':id_usuario', $id_usuario);
+    
+                // Execução da consulta
+                $stmt->execute();
+    
+                // Retorna o resultado da consulta
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                return $result ?? null; // Retorna o nome do usuário ou null se não encontrado
+            } catch (PDOException $e) {
+                // Trate exceções aqui (log, exibição de mensagem, etc.)
+                echo "Erro: " . $e->getMessage();
+                return null;
+            }
+        }
+
+        public function getUserByName($nome_usuario)
+        {
             try {
                 $query = "SELECT * FROM $this->table WHERE nome_usuario = :nome_usuario";
                 
@@ -107,13 +131,15 @@
                 // Retorna o resultado da consulta
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
-                return $result; // Retorna o nome do usuário ou null se não encontrado
+                return $result ?? null; // Retorna o nome do usuário ou null se não encontrado
             } catch (PDOException $e) {
                 // Trate exceções aqui (log, exibição de mensagem, etc.)
                 echo "Erro: " . $e->getMessage();
                 return null;
             }
+        
         }
+            
     }
 
 ?>

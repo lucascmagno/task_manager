@@ -5,15 +5,13 @@ require_once(__DIR__ . '/../../Controllers/usuarioController.php');
 $controller = new MateriaController(); //Inclusão da classe Materia
 $usuarioController = new UsuarioController(); //Inclusão da classe Usuario
 
-// Inicia a sessão para verificar se o usuário está logado antes de acessar a página de matérias
-$userName = $_GET['username'];
-$userData = $usuarioController->getUserByName($userName);
-$id_usuario = $userData['idusuario'];
-$nome_usuario = $userData['nome_usuario'];
-
 session_start();
-$_SESSION['idusuario'] = $id_usuario;
-$_SESSION['nome_usuario'] = $nome_usuario;
+
+$id_usuario = $_SESSION['idusuario'];
+
+$dataUser = $usuarioController->getUserById($id_usuario);
+
+$nome_usuario = $dataUser['nome_usuario'];
 
 if(SESSION_STATUS() === PHP_SESSION_NONE){
     header('Location: ../pages/login.php?materia_cadastro=false');

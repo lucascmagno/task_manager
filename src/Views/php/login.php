@@ -8,9 +8,14 @@
         
         $resultado = $userController->login($nome_usuario, $senha_usuario);
         
-        $_SESSION['nome_usuario'] = $nome_usuario;
         if ($resultado) {
-            header('Location: /src/Views/pages/materia.php?username=' . $nome_usuario . '&sucesso=true');
+            session_start();
+            $dataUser = $userController->getUserByName($nome_usuario);
+            
+            $idusuario = $dataUser['idusuario'];
+            $_SESSION['idusuario'] = $idusuario;
+            $_SESSION['nome_usuario'] = $nome_usuario;
+            header('Location: /src/Views/pages/materia.php?sucesso=true');   
         } else {
             header('Location: /src/Views/pages/login.php?sucesso=false');
         }

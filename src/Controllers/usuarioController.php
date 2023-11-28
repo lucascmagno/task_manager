@@ -30,6 +30,11 @@
             return $resultData;
         }
 
+        function getUserById($idusuario){
+            $resultData = $this->model->getUserById($idusuario);
+            return $resultData;
+        }
+
         function getUserByName($nome_usuario){
             $resultData = $this->model->getUserByName($nome_usuario);
             return $resultData;
