@@ -58,8 +58,8 @@
             return $resultData;
         }
 
-        function deletarMaterialById($id_materia){
-            $resultData = $this->model->deletarMaterialById($id_materia);
+        function deletarMateriaById($id_materia){
+            $resultData = $this->model->deletarMateriaById($id_materia);
             return $resultData;
         }
     }

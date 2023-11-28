@@ -98,10 +98,13 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
             text-decoration: none;
             opacity: 0.7;
         }
+        h1{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h1 class="mt-3">Ma</h1>
+    <h1 class="mt-3">Matérias</h1>
     <p>Olá <span><?= $nome_usuario ?></span></p>
 
     <?php if (!empty($message)): ?>
@@ -227,6 +230,5 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
 
 </script>
 
-</script>
 </body>
 </html>

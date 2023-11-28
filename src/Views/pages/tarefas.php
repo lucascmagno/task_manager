@@ -15,9 +15,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Tarefa</title>
+    <title>Tarefas</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -48,7 +51,7 @@
                     <input type="hidden" name="id_tarefa" value="<?= $row['idtarefa']?>">
                     <input type="hidden" name="id_materia" value="<?= $idmateria?>">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <a href="../php/deleteTarefa.php?idtarefa=<?=$row['idtarefa']?>" class="btn btn-danger">Deletar</a>
+                    <a onclick="return confirm('Tem certeza que deseja apagar?')" href="../php/deleteTarefa.php?idtarefa=<?=$row['idtarefa']?>&idmateria=<?=$idmateria?>" class="btn btn-danger">Deletar</a>
                 </div>
             </form>
         <?php endforeach; ?>
@@ -68,7 +71,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" action="../php/inserirTarefa.php">
+        <form method="post" action="../php/insertTarefa.php">
             <div class="mb-3">
                 <label for="nomeTarefaModal" class="form-label">Nome Tarefa:</label>
                 <input type="text" class="form-control" id="nomeTarefaModal" name="nome_tarefa" required>
@@ -80,6 +83,7 @@
             <div class="mb-3">
                 <label for="tempoLembreteModal" class="form-label">Tempo Lembrete:</label>
                 <input type="datetime-local" class="form-control" id="tempoLembreteModal" name="tempo_lembrete" required>
+                <input type="hidden" name="id_materia" value="<?=$idmateria?>">
             </div>
       </div>
       <div class="modal-footer">

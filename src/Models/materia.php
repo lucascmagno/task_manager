@@ -7,9 +7,14 @@
         function __construct()
         {
             parent::__construct();
-            $this->table = 'materia';
+            $this->table = 'materia';   
         }
 
+        /**
+         * Retrieves all records from the table.
+         *
+         * @return array The result set containing all records.
+         */
         function getAll()
         {
             $sqlSelect = $this->connection->query("SELECT * FROM $this->table");
@@ -91,9 +96,10 @@
         
         }
         
-        function deletarMaterialById($id_materia){
+        function deletarMateriaById($id_materia){
             try {
-                $query = "DELETE FROM $this->table WHERE idmateria = :id_materia";
+                $query = "DELETE FROM $this->table WHERE idmateria = :id_materia;
+                          DELETE FROM ta WHERE materia_idmateria = :id_materia;";
                 
                 $stmt = $this->connection->prepare($query);
     
