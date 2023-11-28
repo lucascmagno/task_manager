@@ -1,8 +1,7 @@
 <?php
-  require_once(__DIR__ . '/../../Controllers/usuarioController.php');
-
-  $usuarioController = new UsuarioController();
-
+  $sucesso = $_GET['sucesso'] ?? null;
+  $cadastrar = $_GET['cadastro'] ?? null;
+  $materia_cadastro = $_GET['materia_cadastro'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +25,30 @@
 
 </head>
 <body>
-    <div class="container">
-        <form class="row g-3 needs-validation" method="post">
+    <div class="container" style="display: flex; flex-direction: column;">
+      <?php
+        if ($cadastrar === 'true') {
+          echo "<div class='alert alert-success' role='alert'>
+                  Usuário cadastrado com sucesso! Faça login!
+                </div>";
+        }
+        if ($sucesso === 'false') {
+          echo "<div class='alert alert-danger' role='alert'>
+                  Erro ao realizar Login!
+                </div>";
+        }
+
+        if ($materia_cadastro === 'true') {
+          echo "<div class='alert alert-success' role='alert'>
+                  Matéria cadastrada com sucesso!
+                </div>";
+        }else if($materia_cadastro === 'false'){
+          echo "<div class='alert alert-danger' role='alert'>
+                  Faça Login para realizar o cadastro de matérias!
+                </div>";
+        }
+      ?>
+        <form class="row g-3 needs-validation" method="post" action="../php/login.php">
             <div class="col-md-12">
               <label for="validationCustomUsername" class="form-label">Usuario</label>
               <div class="input-group has-validation">
@@ -53,7 +74,7 @@
             </div>
             <div class="submit col-12">
                 <a href="./cadastro.php">Cadastre-se agora</a><br>
-              <button class="btn btn-primary" type="submit" onclick="<?= $usuarioController->login()?>">Login</button>
+              <button class="btn btn-primary" type="submit">Login</button>
             </div>
           </form>
     </div>

@@ -1,7 +1,6 @@
 <?php
-  require_once('../../Controllers/usuarioController.php');
-
-  $usuarioController = new UsuarioController();
+  
+  $cadastro = $_GET['cadastro'];
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +24,15 @@
 
 </head>
 <body>
-    <div class="container">
-        <form method="post" class="row g-3 needs-validation" novalidate>
+    <div class="container" style="display: flex; flex-direction: column;">
+    <?php
+        if ($cadastro === 'false') {
+          echo "<div class='alert alert-danger' role='alert'>
+                  Erro ao cadastrar usuário!
+                </div>";
+        }
+      ?>
+        <form method="post" action="../php/insertUsuario.php" class="row g-3 needs-validation" novalidate>
             <div class="col-md-12">
               <label for="validationCustomUsername" class="form-label">Usuario</label>
               <div class="input-group has-validation">
@@ -73,7 +79,7 @@
             </div>
             <div class="submit col-12">
                 <a href="./login.php">Já tem conta? Faça login agora</a><br>
-              <button class="btn btn-primary" type="submit" onclick="<?= $usuarioController->adicionarUsuario()?>">Cadastrar</button>
+              <input class="btn btn-primary" type="submit" value="Cadastrar">
             </div>
           </form>
     </div>

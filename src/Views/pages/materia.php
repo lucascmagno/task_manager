@@ -6,33 +6,21 @@ $controller = new MateriaController(); //Inclusão da classe Materia
 $usuarioController = new UsuarioController(); //Inclusão da classe Usuario
 
 // Inicia a sessão para verificar se o usuário está logado antes de acessar a página de matérias
+$userName = $_GET['username'];
+$userData = $usuarioController->getUserByName($userName);
+$id_usuario = $userData['idusuario'];
+$nome_usuario = $userData['nome_usuario'];
+
 session_start();
-// Verifica se o usuário está autenticado antes de acessar o ID
-/*
-if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-    $id_usuario = $_SESSION['user_id'];
-    // Restante do código
-} else {
-    // Redireciona ou executa outra lógica para usuários não autenticados
-    $_SESSION['message'] = 'Você precisa fazer login para acessar esta página.';
-    header('Location: ./materia.php');
+$_SESSION['idusuario'] = $id_usuario;
+$_SESSION['nome_usuario'] = $nome_usuario;
+
+if(SESSION_STATUS() === PHP_SESSION_NONE){
+    header('Location: ../pages/login.php?materia_cadastro=false');
     exit();
 }
-*/
-$action = !empty($_GET['a']) ? $_GET['a'] : 'getAll';
 
-
-$data = $controller->{$action}();
-
-$message = '';
-if (isset($_GET['success'])) {
-    $message = ($_GET['success'] === 'true') ? "Sucesso!" : "Error!";
-}
-
-// Obtém o nome do usuário logado
-$id_usuario = 1;
-$nome_usuario = $usuarioController->getUserNameById($id_usuario);
-
+$data = $controller->getAll();
 ?>
 
 <!DOCTYPE html>
@@ -106,10 +94,6 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
 <body>
     <h1 class="mt-3">Matérias</h1>
     <p>Olá <span><?= $nome_usuario ?></span></p>
-
-    <?php if (!empty($message)): ?>
-            <script>alert('<?php echo $message; ?>')</script>
-    <?php endif; ?>
     <div class="Container w-50">
         <ul class="custom-list mt-3">
             <?php foreach ($data as $row): ?>
@@ -185,7 +169,7 @@ $nome_usuario = $usuarioController->getUserNameById($id_usuario);
                 <label for="materiaNome">Nome da Matéria</label>
             </div>
             
-            <input type="hidden" value="1" name="idusuario" required>
+            <input type="hidden" value="<?=$id_usuario?>" name="idusuario" required>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>

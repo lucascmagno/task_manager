@@ -43,31 +43,23 @@
             }
         }
 
-        function login($nome_usuario, $senha_usuario) {
+        function login($nome_usuario, $senha_usuario){
             try {
-                // Use instruções preparadas para evitar injeção de SQL
-                $query = "SELECT idusuario FROM $this->table WHERE nome_usuario = :nome_usuario AND senha = :senha_usuario";
-        
+                $query = "SELECT * FROM $this->table WHERE nome_usuario = :nome_usuario AND senha = :senha_usuario";
+                
                 $stmt = $this->connection->prepare($query);
-        
+    
                 // Bind dos parâmetros
                 $stmt->bindParam(':nome_usuario', $nome_usuario);
                 $stmt->bindParam(':senha_usuario', $senha_usuario);
-        
+    
                 // Execução da consulta
                 $stmt->execute();
-        
-                // Obtém o resultado como um array associativo
+    
+                // Retorna o resultado da consulta
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-                // Verifica se há um resultado
-                if ($result) {
-                    // Armazena o ID do usuário na sessão
-                    $_SESSION['user_id'] = $result['idusuario'];
-                    return true;
-                } else {
-                    return false;
-                }
+    
+                return true; // Retorna o nome do usuário ou null se não encontrado
             } catch (PDOException $e) {
                 // Trate exceções aqui (log, exibição de mensagem, etc.)
                 echo "Erro: " . $e->getMessage();
@@ -98,6 +90,29 @@
                 return null;
             }
         
+        }
+
+        function getUserByName($nome_usuario){
+            try {
+                $query = "SELECT * FROM $this->table WHERE nome_usuario = :nome_usuario";
+                
+                $stmt = $this->connection->prepare($query);
+    
+                // Bind dos parâmetros
+                $stmt->bindParam(':nome_usuario', $nome_usuario);
+    
+                // Execução da consulta
+                $stmt->execute();
+    
+                // Retorna o resultado da consulta
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                return $result; // Retorna o nome do usuário ou null se não encontrado
+            } catch (PDOException $e) {
+                // Trate exceções aqui (log, exibição de mensagem, etc.)
+                echo "Erro: " . $e->getMessage();
+                return null;
+            }
         }
     }
 

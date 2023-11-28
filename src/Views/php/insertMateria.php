@@ -3,6 +3,13 @@ require_once(__DIR__ . '/../../Controllers/materiaController.php');
 
 $materiaController = new MateriaController();
 
+
+if(SESSION_STATUS() === PHP_SESSION_NONE){
+    header('Location: ../pages/login.php?materia_cadastro=false');
+    exit();
+}
+
+
 if(isset($_POST['nome_materia'])){ // corrigindo o nome do campo
     $nome_materia = $_POST['nome_materia']; // corrigindo o nome do campo
     $idusuario = $_POST['idusuario'];
