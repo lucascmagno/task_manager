@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/../../Controllers/materiaController.php');
 require_once(__DIR__ . '/../../Controllers/usuarioController.php');
 
-$controller = new MateriaController(); //Inclusão da classe Materia
+$materiaController = new MateriaController(); //Inclusão da classe Materia
 $usuarioController = new UsuarioController(); //Inclusão da classe Usuario
 
 session_start();
@@ -10,6 +10,10 @@ session_start();
 $id_usuario = $_SESSION['idusuario'];
 
 $dataUser = $usuarioController->getUserById($id_usuario);
+if($dataUser == null){
+    header('Location: ../pages/login.php?materia_cadastro=false');
+    exit();
+}
 
 $nome_usuario = $dataUser['nome_usuario'];
 
@@ -18,7 +22,7 @@ if(SESSION_STATUS() === PHP_SESSION_NONE){
     exit();
 }
 
-$data = $controller->getAll();
+$data = $materiaController->getAllByIdUser($id_usuario);
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +73,7 @@ $data = $controller->getAll();
         }
         .Container{
             margin: auto;
+            
         }
         span{
             font-weight: 600;
@@ -79,6 +84,7 @@ $data = $controller->getAll();
             display: flex;
             flex-direction: row;
             justify-content: end;
+            gap: 10px;
         }
         a:hover{
             text-decoration: none;
@@ -87,11 +93,25 @@ $data = $controller->getAll();
         h1{
             text-align: center;
         }
+        
     </style>
 </head>
 <body>
     <h1 class="mt-3">Matérias</h1>
-    <p>Olá <span><?= $nome_usuario ?></span></p>
+    <div class="Container">
+        <p>Olá <span><?= $nome_usuario ?></span></p>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Menu
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a style="color: red;" class="dropdown-item" href="../php/logout.php">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="Container w-50">
         <ul class="custom-list mt-3">
             <?php foreach ($data as $row): ?>
@@ -102,18 +122,16 @@ $data = $controller->getAll();
                         <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span>
                         <span>Atualizado em: <?= (new DateTime($row['data_atualizacao']))->format('d/m/Y H:i:s') ?></span>
                         <!-- Botões Editar e Apagar -->
-                        <div class="botoes">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?=$row['idmateria']?>">Editar</button>
-
-
-                            <form method="post" action="../php/deleteMateria.php">
-                                <input type="hidden" name="id_materia" value="<?=$row['idmateria']?>">
-                                 <button type="submit" onclick="return confirm('Tem certeza que deseja apagar?')" class="btn btn-danger custom-btn">Apagar</button>
-                            </form>
-                        </div>
                     </div>
                 </li>
                 </a>
+                <div class="botoes">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?=$row['idmateria']?>">Editar</button>
+                    <form method="post" action="../php/deleteMateria.php">
+                        <input type="hidden" name="id_materia" value="<?=$row['idmateria']?>">
+                         <button type="submit" onclick="return confirm('Tem certeza que deseja apagar?')" class="btn btn-danger custom-btn">Apagar</button>
+                    </form>
+                </div>
             <?php endforeach; ?>
         </ul>
     </div>

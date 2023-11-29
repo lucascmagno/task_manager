@@ -16,6 +16,11 @@
             return $resultData;
         }
 
+        function getAllByIdUser($idusuario){
+            $resultData = $this->model->getAllByIdUser($idusuario);
+            return $resultData;
+        }
+
         function inserirMateria($nome_materia, $idusuario){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Valide os dados conforme necessário

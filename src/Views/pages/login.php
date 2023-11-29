@@ -2,6 +2,11 @@
   $sucesso = $_GET['sucesso'] ?? null;
   $cadastrar = $_GET['cadastro'] ?? null;
   $materia_cadastro = $_GET['materia_cadastro'] ?? null;
+
+  $user_logout = $_GET['user_logout'] ?? null;
+  if ($user_logout === 'true') {
+    echo "<script>alert('Usuário Deslogado com sucesso!')</script>";
+  }
 ?>
 
 <!DOCTYPE html>

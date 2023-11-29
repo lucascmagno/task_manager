@@ -15,9 +15,16 @@
          *
          * @return array The result set containing all records.
          */
-        function getAll()
+        public function getAll()
         {
             $sqlSelect = $this->connection->query("SELECT * FROM $this->table");
+            $resultQuery = $sqlSelect->fetchAll();
+            return $resultQuery;
+        }
+
+        public function getAllByIdUser($idusuario)
+        {
+            $sqlSelect = $this->connection->query("SELECT * FROM $this->table WHERE usuario_idusuario = $idusuario");
             $resultQuery = $sqlSelect->fetchAll();
             return $resultQuery;
         }

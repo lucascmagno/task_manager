@@ -8,6 +8,17 @@
 
     $data = $tarefaController->getTarefaByIdMateria($idmateria);
     //var_dump($data);
+    if(isset($_GET['sucesso'])){
+        $sucesso = $_GET['sucesso'];
+    } else {
+        $sucesso = '';
+    }
+    
+    if($sucesso == 'true'){
+        echo "<script>alert('Tarefa editada com sucesso!')</script>";
+    } elseif($sucesso == 'false'){
+        echo "<script>alert('Erro ao editar tarefa!')</script>";
+    }
 
 ?>
 <!DOCTYPE html>
@@ -21,18 +32,27 @@
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <style>
+        .form-container{
+            width: 30%;
+        }
+        .container{
+            display: flex;
+            margin: auto;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <a href="./materia.php" class="btn btn-link">< Back</a>
-        <div class="text-center">
-            <h1 class="mt-3">Tarefas</h1>
-        </div>
+    <a href="./materia.php" class="btn btn-link">< Back</a>
+    <div class="text-center">
+        <h1 class="mt-3">Tarefas</h1>
+    </div>
+    <div class="container w-100">
         <?php foreach ($data as $row): ?>
-            <form action="../php/editarTarefa.php" method="post" class="card mt-4">
-                <div class="card-header">
-                    <h5 class="card-title">ID: <?= $row['idtarefa']?></h5>
-                </div>
+            <form action="../php/editarTarefa.php" method="post" class="card mt-4 form-container">
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="nomeTarefa" class="form-label">Nome Tarefa:</label>
