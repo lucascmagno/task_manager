@@ -115,8 +115,7 @@ $data = $materiaController->getAllByIdUser($id_usuario);
                 Menu
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Alterar Perfil</a></li>
                 <li><a style="color: red;" class="dropdown-item" href="../php/logout.php">Sair</a></li>
             </ul>
         </div>
@@ -171,7 +170,6 @@ $data = $materiaController->getAllByIdUser($id_usuario);
             </div>
         </div>
     </div>
-
 
 
     <!-- Modal para Adicionar uma Matéria-->
