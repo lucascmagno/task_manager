@@ -93,7 +93,17 @@ $data = $materiaController->getAllByIdUser($id_usuario);
         h1{
             text-align: center;
         }
-        
+        .btn-add-materia{
+            display: flex;
+            justify-content: end;
+            align-items: flex-end;
+            align-content: flex-end;
+            margin-bottom: 20px;
+            margin-right: 40px;
+        }
+        .btn-add-materia button{
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -166,9 +176,11 @@ $data = $materiaController->getAllByIdUser($id_usuario);
 
     <!-- Modal para Adicionar uma Matéria-->
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdicionarMateria">
-  Adicionar Matéria Nova
-</button>
+<div class="fixed-bottom btn-add-materia">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdicionarMateria">
+     <img width="50"  height="50" src="../../../public/assets/icons/plus-circle.svg" alt="">  Adicionar Matéria Nova
+    </button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="AdicionarMateria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

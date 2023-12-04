@@ -43,10 +43,21 @@
             justify-content: space-evenly;
             flex-wrap: wrap;
         }
+        .btn-add-tarefa{
+            display: flex;
+            justify-content: end;
+            align-items: flex-end;
+            align-content: flex-end;
+            margin-bottom: 20px;
+            margin-right: 40px;
+        }
+        .btn-add-tarefa button{
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
-    <a href="./materia.php" class="btn btn-link">< Back</a>
+    <a href="./materia.php" class="btn btn-link"><img width="65" height="65" src="../../../public/assets/icons/arrow-left.svg" alt=""></a>
     <div class="text-center">
         <h1 class="mt-3">Tarefas</h1>
     </div>
@@ -78,9 +89,11 @@
     </div>
 
     <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdicionarTarefaModal">
-  Adicionar Tarefa Nova
-</button>
+<div class="fixed-bottom btn-add-tarefa">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdicionarTarefaModal">
+      <img width="50"  height="50" src="../../../public/assets/icons/plus-circle.svg" alt=""> Adicionar Tarefa Nova
+    </button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="AdicionarTarefaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

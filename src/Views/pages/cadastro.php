@@ -1,6 +1,10 @@
 <?php
   
-  $cadastro = $_GET['cadastro'];
+  if (isset($_GET['cadastro'])) {
+    $cadastro = $_GET['cadastro'];
+  } else {
+    $cadastro = 'true';
+  }
 ?>
 
 <!DOCTYPE html>
