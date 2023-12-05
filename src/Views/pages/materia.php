@@ -33,9 +33,6 @@ $data = $materiaController->getAllByIdUser($id_usuario);
     <title>Materias</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
    
     <link rel="stylesheet" href="../style/materia.css">
@@ -63,11 +60,11 @@ $data = $materiaController->getAllByIdUser($id_usuario);
                         <h5><?= $row['nome_materia'] ?></h5>
                     </a>
                     <div>
-                        <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span> / 
+                        <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span> /
                         <span>Atualizado em: <?= (new DateTime($row['data_atualizacao']))->format('d/m/Y H:i:s') ?></span>
                         <!-- Botões Editar e Apagar -->
                         <div class="botoes">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?= $row['idmateria'] ?>">Editar</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?= $row['idmateria'] ?>" onclick="<?=$updateData = $materiaController->getMateriaById($row['idmateria'])?>">Editar</button>
                             <form method="post" action="../php/deleteMateria.php">
                                 <input type="hidden" name="id_materia" value="<?= $row['idmateria'] ?>">
                                 <button type="submit" onclick="return confirm('Tem certeza que deseja apagar?')" class="btn btn-danger custom-btn">Apagar</button>
@@ -90,10 +87,10 @@ $data = $materiaController->getAllByIdUser($id_usuario);
                 <div class="modal-body">
                     <form id="editarForm" method="post" action="../php/editarMateria.php">
                         <div class="form-floating">
-                            <input id="materiaNome" type="text" class="form-control" placeholder="Matemática" name="nome_materia" required>
+                            <input id="materiaNome" type="text" class="form-control" placeholder="Matemática" name="nome_materia" required value="<?=$updateData['nome_materia']?>">
                             <label for="materiaNome">Nome da Matéria</label>
                         </div>
-                        <input id="materiaId" type="hidden" name="id_materia">
+                        <input id="materiaId" type="hidden" name="id_materia" value="<?=$updateData['idmateria']?>">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>

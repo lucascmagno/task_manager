@@ -53,6 +53,7 @@
                 </div>";
         }
       ?>
+      <h2>Faça login para organizar suas <span>Tarefas</span></h2>
         <form class="row g-3 needs-validation" method="post" action="../php/login.php">
             <div class="col-md-12">
               <label for="validationCustomUsername" class="form-label">Usuario</label>
