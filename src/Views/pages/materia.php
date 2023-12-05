@@ -38,73 +38,7 @@ $data = $materiaController->getAllByIdUser($id_usuario);
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
    
-    <style>
-        .message {
-            margin-top: 20px;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        .success {
-            color: green;
-        }
-
-        .failure {
-            color: red;
-        }
-
-        .custom-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .custom-list-item {
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .custom-btn {
-            margin-right: 10px;
-        }
-        .Container{
-            margin: auto;
-            
-        }
-        span{
-            font-weight: 600;
-            font-size: .8rem;
-        }
-
-        .botoes{
-            display: flex;
-            flex-direction: row;
-            justify-content: end;
-            gap: 10px;
-        }
-        a:hover{
-            text-decoration: none;
-            opacity: 0.7;
-        }
-        h1{
-            text-align: center;
-        }
-        .btn-add-materia{
-            display: flex;
-            justify-content: end;
-            align-items: flex-end;
-            align-content: flex-end;
-            margin-bottom: 20px;
-            margin-right: 40px;
-        }
-        .btn-add-materia button{
-            font-size: 1.2em;
-        }
-    </style>
+    <link rel="stylesheet" href="../style/materia.css">
 </head>
 <body>
     <h1 class="mt-3">Matérias</h1>
@@ -121,30 +55,29 @@ $data = $materiaController->getAllByIdUser($id_usuario);
         </div>
     </div>
 
-    <div class="Container w-50">
-        <ul class="custom-list mt-3">
+    <div class="container w-50 mt-3">
+        <ul class="custom-list">
             <?php foreach ($data as $row): ?>
-                <a class="link-dark link-offset-2 link-underline link-underline-opacity-0" href="./tarefas.php?idmateria=<?=$row['idmateria']?>">
                 <li class="custom-list-item">
-                    <h5><?= $row['nome_materia'] ?></h5>
+                <a class="link link-dark link-offset-2 link-underline link-underline-opacity-0" href="./tarefas.php?idmateria=<?=$row['idmateria']?>">
+                        <h5><?= $row['nome_materia'] ?></h5>
+                    </a>
                     <div>
-                        <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span>
+                        <span>Criado em: <?= (new DateTime($row['data_criacao']))->format('d/m/Y H:i:s') ?></span> / 
                         <span>Atualizado em: <?= (new DateTime($row['data_atualizacao']))->format('d/m/Y H:i:s') ?></span>
                         <!-- Botões Editar e Apagar -->
+                        <div class="botoes">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?= $row['idmateria'] ?>">Editar</button>
+                            <form method="post" action="../php/deleteMateria.php">
+                                <input type="hidden" name="id_materia" value="<?= $row['idmateria'] ?>">
+                                <button type="submit" onclick="return confirm('Tem certeza que deseja apagar?')" class="btn btn-danger custom-btn">Apagar</button>
+                            </form>
+                        </div>
                     </div>
                 </li>
-                </a>
-                <div class="botoes">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Editar" data-id="<?=$row['idmateria']?>">Editar</button>
-                    <form method="post" action="../php/deleteMateria.php">
-                        <input type="hidden" name="id_materia" value="<?=$row['idmateria']?>">
-                         <button type="submit" onclick="return confirm('Tem certeza que deseja apagar?')" class="btn btn-danger custom-btn">Apagar</button>
-                    </form>
-                </div>
             <?php endforeach; ?>
         </ul>
     </div>
-
     <!-- Modal Para Editar Uma Materia -->
   
     <div class="modal fade" id="Editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
